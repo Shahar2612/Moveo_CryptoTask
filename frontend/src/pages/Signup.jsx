@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import './Auth.css';
 
 // signup page, allows users to create a new account
@@ -11,6 +12,7 @@ const Signup = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
+  const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate();
 
   // handle form submission, validate inputs and call signup API
@@ -38,6 +40,9 @@ const Signup = () => {
 
   return (
     <div className="auth-container">
+      <button className="theme-toggle-auth" onClick={toggleTheme} title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
+        {isDark ? '☀️' : '🌙'}
+      </button>
       <div className="auth-card">
         <h1>Create Account</h1>
         <p className="subtitle">Start your crypto journey</p>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import './Auth.css';
 
 // login page, allows users to login to their account
@@ -10,6 +11,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate();
 
   // handle form submission, validate inputs and call login API
@@ -36,6 +38,9 @@ const Login = () => {
 
   return (
     <div className="auth-container">
+      <button className="theme-toggle-auth" onClick={toggleTheme} title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
+        {isDark ? '☀️' : '🌙'}
+      </button>
       <div className="auth-card">
         <h1>Welcome Back</h1>
         <p className="subtitle">Login to your crypto dashboard</p>

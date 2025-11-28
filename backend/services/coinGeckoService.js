@@ -32,7 +32,7 @@ const getCoinPrices = async (assetIds = []) => {
     });
 
     // format the response
-    const formattedData = Object.entries(response.data).map(([id, data]) => ({
+    const formattedData = Object.entries(response.data || {}).map(([id, data]) => ({
       id,
       symbol: id,
       name: id.charAt(0).toUpperCase() + id.slice(1),
@@ -40,6 +40,40 @@ const getCoinPrices = async (assetIds = []) => {
       change24h: data.usd_24h_change,
       marketCap: data.usd_market_cap,
     }));
+
+    // If user has preferences and API didn't return all requested coins, add fallback for missing ones
+    if (assetIds.length > 0) {
+      const returnedIds = formattedData.map(coin => coin.id);
+      const missingIds = assetIds.filter(id => !returnedIds.includes(id));
+      
+      if (missingIds.length > 0) {
+        // Get fallback prices for coins that API didn't return
+        const missingCoins = missingIds.map((id) => {
+          const fallbackPrices = {
+            bitcoin: { price: 45000, change24h: 2.5 },
+            ethereum: { price: 2800, change24h: 1.8 },
+            solana: { price: 120, change24h: 3.2 },
+            cardano: { price: 0.55, change24h: -0.5 },
+            polkadot: { price: 7.5, change24h: 1.2 },
+            chainlink: { price: 18, change24h: 2.1 },
+            polygon: { price: 0.95, change24h: 0.8 },
+            avalanche: { price: 38, change24h: 1.5 },
+            cosmos: { price: 12, change24h: 0.9 },
+            algorand: { price: 0.25, change24h: -0.3 },
+          };
+          const coinData = fallbackPrices[id] || { price: 100, change24h: 0 };
+          return {
+            id,
+            symbol: id,
+            name: id.charAt(0).toUpperCase() + id.slice(1),
+            price: coinData.price,
+            change24h: coinData.change24h,
+            marketCap: null,
+          };
+        });
+        formattedData.push(...missingCoins);
+      }
+    }
 
     return {
       coins: formattedData,
@@ -79,7 +113,7 @@ const getFallbackCoinPrices = (assetIds = []) => {
     algorand: { price: 0.25, change24h: -0.3 },
   };
 
-  const formattedData = coins.slice(0, 4).map((id) => {
+  const formattedData = coins.map((id) => {
     const coinData = fallbackPrices[id] || { price: 100, change24h: 0 };
     return {
       id,

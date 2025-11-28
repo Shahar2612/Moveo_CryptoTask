@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 import axios from 'axios';
 import './Onboarding.css';
 // onboarding page, allows users to personalize their dashboard
@@ -10,6 +11,7 @@ const Onboarding = () => {
   const [contentPreferences, setContentPreferences] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate();
 
   const cryptoAssets = [
@@ -33,7 +35,7 @@ const Onboarding = () => {
     'Other',
   ];
 
-  const contentTypes = ['Market News', 'Charts', 'Social', 'Fun'];
+  const contentTypes = ['Market News', 'Charts', 'AI Insights', 'Fun'];
 
   // toggle asset selection, add or remove from interestedAssets array
   const toggleAsset = (asset) => {
@@ -90,6 +92,9 @@ const Onboarding = () => {
 
   return (
     <div className="onboarding-container">
+      <button className="theme-toggle-auth" onClick={toggleTheme} title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
+        {isDark ? '☀️' : '🌙'}
+      </button>
       <div className="onboarding-card">
         <div className="progress-bar">
           <div

@@ -4,15 +4,19 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  background: var(--bg-primary);
+  transition: background 0.3s ease;
 }
 
 .onboarding-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 16px;
   padding: 40px;
   width: 100%;
   max-width: 700px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 40px var(--shadow);
+  border: 1px solid var(--border-color);
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .progress-bar {
@@ -31,21 +35,24 @@
 }
 
 .onboarding-card h1 {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 8px;
   font-size: 32px;
+  transition: color 0.3s ease;
 }
 
 .step-content h2 {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 8px;
   font-size: 24px;
+  transition: color 0.3s ease;
 }
 
 .step-description {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 24px;
   font-size: 16px;
+  transition: color 0.3s ease;
 }
 
 .options-grid {
@@ -64,9 +71,10 @@
 
 .option-btn {
   padding: 16px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  background: white;
+  background: var(--bg-card);
+  color: var(--text-primary);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -87,9 +95,10 @@
 
 .option-btn-large {
   padding: 20px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  background: white;
+  background: var(--bg-card);
+  color: var(--text-primary);
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;

@@ -1,23 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import axios from 'axios';
 import './Dashboard.css';
 
 // dashboard page, displays personalized crypto content based on user preferences
 const Dashboard = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [votes, setVotes] = useState({}); // track votes: { "sectionType-contentId": "up" | "down" }
+  const [userPreferences, setUserPreferences] = useState(null);
 
   useEffect(() => {
+    fetchUserPreferences();
     fetchDashboard();
     fetchUserVotes();
   }, []);
-// fetch dashboard data from API, navigate to onboarding if not found
+
+  const fetchUserPreferences = async () => {
+    try {
+      const response = await axios.get('/api/onboarding');
+      setUserPreferences(response.data.data.preferences);
+    } catch (err) {
+      console.error('Failed to fetch preferences:', err);
+    }
+  };
+
+  // fetch dashboard data from API, navigate to onboarding if not found
   const fetchDashboard = async () => {
     try {
       setLoading(true);
@@ -91,6 +105,22 @@ const Dashboard = () => {
     return votes[key] || null;
   };
 
+  // Map content preferences to dashboard sections
+  const shouldShowSection = (sectionName) => {
+    if (!userPreferences?.contentPreferences) return false;
+    
+    const mapping = {
+      'Market News': 'Market News',
+      'Charts': 'Coin Prices',
+      'AI Insights': 'AI Insight',
+      'Fun': 'Meme',
+    };
+    
+    return userPreferences.contentPreferences.some(
+      pref => mapping[pref] === sectionName
+    );
+  };
+
   if (loading) {
     return <div className="loading">Loading your dashboard...</div>;
   }
@@ -104,14 +134,20 @@ const Dashboard = () => {
       <header className="dashboard-header">
         <div className="header-content">
           <h1>Welcome back, {user?.name}!</h1>
-          <button className="btn-logout" onClick={logout}>
-            Logout
-          </button>
+          <div className="header-actions">
+            <button className="theme-toggle" onClick={toggleTheme} title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
+              {isDark ? '☀️' : '🌙'}
+            </button>
+            <button className="btn-logout" onClick={logout}>
+              Logout
+            </button>
+          </div>
         </div>
       </header>
 
       <div className="dashboard-content">
         {/* market news section */}
+        {shouldShowSection('Market News') && (
         <section className="dashboard-section">
           <div className="section-header">
             <h2>📰 Market News</h2>
@@ -155,8 +191,10 @@ const Dashboard = () => {
             </div>
           )}
         </section>
+        )}
 
         {/* coin prices section */}
+        {shouldShowSection('Coin Prices') && (
         <section className="dashboard-section">
           <div className="section-header">
             <h2>💰 Coin Prices</h2>
@@ -202,8 +240,10 @@ const Dashboard = () => {
             </div>
           )}
         </section>
+        )}
 
         {/* ai insight section */}
+        {shouldShowSection('AI Insight') && (
         <section className="dashboard-section">
           <div className="section-header">
             <h2>🤖 AI Insight of the Day</h2>
@@ -243,8 +283,10 @@ const Dashboard = () => {
             </div>
           )}
         </section>
+        )}
 
         {/* meme section */}
+        {shouldShowSection('Meme') && (
         <section className="dashboard-section">
           <div className="section-header">
             <h2>😄 Fun Crypto Meme</h2>
@@ -290,6 +332,7 @@ const Dashboard = () => {
             </div>
           )}
         </section>
+        )}
       </div>
     </div>
   );

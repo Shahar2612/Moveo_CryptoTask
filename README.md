@@ -95,6 +95,36 @@ npm run dev
 
 ## 🌐 Running the Application
 
+### Option 1: Single Command (Recommended)
+
+From the root directory, run:
+```bash
+npm run dev
+```
+
+This will start both backend and frontend servers simultaneously.
+
+**Note**: First time setup - install dependencies:
+```bash
+npm install  # Install concurrently
+cd backend && npm install
+cd ../frontend && npm install
+```
+
+### Option 2: Using Scripts
+
+**Windows (PowerShell):**
+```powershell
+.\start-dev.ps1
+```
+
+**Windows (Command Prompt):**
+```cmd
+start-dev.bat
+```
+
+### Option 3: Manual Start
+
 1. **Start MongoDB** (local or use MongoDB Atlas)
 2. **Start Backend**: `cd backend && npm run dev` (runs on port 3000)
 3. **Start Frontend**: `cd frontend && npm run dev` (runs on port 3001)
@@ -131,11 +161,61 @@ See `backend/ENV_SETUP.md` for detailed environment variable setup.
 2. **Onboarding** - Complete the quiz about your crypto interests
 3. **Dashboard** - View personalized content and vote on recommendations
 
-## 🤝 Contributing
+## 🧠 Future Model Training & Improvement
 
-This is a personal project, but suggestions and improvements are welcome!
+The voting system collects valuable feedback data that can be used to train and improve the AI recommendation model. Here's a suggested approach for future implementation:
 
-## 📄 License
+### Data Collection
 
-ISC
+The app currently stores all user votes in the `Vote` collection with the following structure:
+- **User ID**: Links feedback to specific users
+- **Section Type**: Identifies content category (market-news, coin-prices, ai-insight, meme)
+- **Content ID**: Identifies the specific content item
+- **Vote**: Thumbs up (up) or thumbs down (down)
+- **Timestamp**: When the vote was cast
+
+### Suggested Training Process
+
+1. **Data Aggregation**
+   - Collect votes over time to build a training dataset
+   - Aggregate votes by content type, user preferences, and content characteristics
+   - Calculate engagement metrics (upvote rate, downvote rate, total votes)
+
+2. **Feature Engineering**
+   - Combine vote data with user preferences (investor type, interested assets, content preferences)
+   - Extract content features (news source, coin market cap, AI model used, etc.)
+   - Create user-content interaction features
+
+3. **Model Training Approaches**
+   - **Collaborative Filtering**: Use vote patterns to find similar users and recommend content they liked
+   - **Content-Based Filtering**: Learn which content features correlate with positive votes
+   - **Hybrid Approach**: Combine both methods for better recommendations
+   - **Reinforcement Learning**: Use votes as rewards to train the AI insight generation model
+
+4. **Implementation Suggestions**
+   - **Batch Processing**: Periodically (daily/weekly) analyze vote data and retrain models
+   - **A/B Testing**: Test different recommendation algorithms and measure improvement
+   - **Feedback Loop**: Use improved recommendations → collect more votes → retrain → improve further
+   - **Personalization**: Train user-specific models based on individual voting patterns
+
+5. **Metrics to Track**
+   - Overall upvote rate improvement over time
+   - User engagement (more votes = more engagement)
+   - Content diversity (ensuring variety in recommendations)
+   - User retention (better recommendations = happier users)
+
+### Current Data Structure
+
+All votes are stored in MongoDB and can be queried for analysis:
+```javascript
+// Example: Get all votes for AI insights
+Vote.find({ sectionType: 'ai-insight' })
+
+// Example: Get user's voting patterns
+Vote.find({ userId: userId }).populate('userId')
+```
+
+This data foundation enables future machine learning implementations to improve content recommendations and personalize the dashboard experience.
+
+
 

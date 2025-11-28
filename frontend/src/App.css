@@ -53,17 +53,20 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
   padding: 12px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
-  transition: border-color 0.3s ease;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .form-group input:focus,
@@ -87,7 +90,8 @@
 .loading {
   text-align: center;
   padding: 40px;
-  color: white;
+  color: var(--text-inverse);
   font-size: 18px;
+  transition: color 0.3s ease;
 }
 
