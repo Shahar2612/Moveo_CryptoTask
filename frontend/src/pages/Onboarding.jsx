@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import axios from 'axios';
+import api from '../config/axios';
 import './Onboarding.css';
 // onboarding page, allows users to personalize their dashboard
 const Onboarding = () => {
@@ -76,7 +76,7 @@ const Onboarding = () => {
     setError('');
 
     try {
-      await axios.post('/api/onboarding', {
+      await api.post('/onboarding', {
         interestedAssets,
         investorType,
         contentPreferences,

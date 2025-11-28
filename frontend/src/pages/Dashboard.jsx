@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import axios from 'axios';
+import api from '../config/axios';
 import './Dashboard.css';
 
 // dashboard page, displays personalized crypto content based on user preferences
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   const fetchUserPreferences = async () => {
     try {
-      const response = await axios.get('/api/onboarding');
+      const response = await api.get('/onboarding');
       setUserPreferences(response.data.data.preferences);
     } catch (err) {
       console.error('Failed to fetch preferences:', err);
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const fetchDashboard = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/dashboard');
+      const response = await api.get('/dashboard');
       setDashboardData(response.data.data);
     } catch (err) {
       if (err.response?.status === 404) {
@@ -51,7 +51,7 @@ const Dashboard = () => {
   // fetch user votes from API
   const fetchUserVotes = async () => {
     try {
-      const response = await axios.get('/api/dashboard/votes');
+      const response = await api.get('/dashboard/votes');
       const votesMap = {};
       response.data.data.votes.forEach((vote) => {
         const key = `${vote.sectionType}-${vote.contentId}`;
@@ -88,7 +88,7 @@ const Dashboard = () => {
     }
 
     try {
-      await axios.post('/api/dashboard/vote', {
+      await api.post('/dashboard/vote', {
         sectionType,
         contentId,
         vote: newVote, // null if removing, otherwise 'up' or 'down'

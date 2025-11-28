@@ -148,7 +148,40 @@ start-dev.bat
 
 ## 🔑 Environment Variables
 
-See `backend/ENV_SETUP.md` for detailed environment variable setup.
+### Backend
+
+Create a `.env` file in the `backend` directory:
+
+```env
+PORT=3000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/crypto-dashboard
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+
+# Optional API Keys (for better rate limits)
+COINGECKO_API_KEY=your-coingecko-api-key
+CRYPTOPANIC_API_KEY=your-cryptopanic-api-key
+OPENROUTER_API_KEY=your-openrouter-api-key
+HUGGINGFACE_API_KEY=your-huggingface-api-key
+```
+
+### Frontend
+
+Create a `.env` file in the `frontend` directory:
+
+```env
+# API Base URL
+# For local development: Leave empty to use Vite proxy (http://localhost:3000)
+# For production/Vercel: Set to your backend API URL
+# Example: VITE_API_URL=https://your-backend-api.vercel.app/api
+VITE_API_URL=
+```
+
+**Important Notes:**
+- Vite uses the `VITE_` prefix for environment variables (not `REACT_APP_`)
+- For local development, you can leave `VITE_API_URL` empty - the Vite proxy will handle requests
+- For Vercel deployment, set `VITE_API_URL` to your deployed backend URL (e.g., `https://your-backend.vercel.app/api`)
+- Environment variables must be prefixed with `VITE_` to be accessible in the frontend code
 
 ## 📚 Documentation
 
