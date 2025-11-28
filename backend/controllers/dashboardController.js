@@ -71,10 +71,10 @@ exports.submitVote = async (req, res) => {
     const userId = req.user.id;
 
     // validate input
-    if (!sectionType || !contentId || !vote) {
+    if (!sectionType || !contentId) {
       return res.status(400).json({
         success: false,
-        message: 'please provide sectionType, contentId, and vote (up/down)',
+        message: 'please provide sectionType and contentId',
       });
     }
 
@@ -82,6 +82,21 @@ exports.submitVote = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'invalid sectionType',
+      });
+    }
+
+    // if vote is null, remove the vote
+    if (!vote || vote === 'null') {
+      const deletedVote = await Vote.findOneAndDelete({
+        userId,
+        sectionType,
+        contentId,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: 'vote removed successfully',
+        data: { vote: null },
       });
     }
 
