@@ -55,34 +55,7 @@ The application is available at: **[https://bright-rabanadas-54d700.netlify.app/
 
 ##  Vite Usage
 
-This project uses **Vite** as the build tool and development server for the React frontend. Here's how and where Vite is used:
-
-### Where Vite is Used
-
-1. **Development Server** (`npm run dev`):
-   - Vite serves the React app on `http://localhost:3001`
-   - Provides HMR for instant updates during development
-   - Configured in `frontend/vite.config.js`
-
-2. **Build Process** (`npm run build`):
-   - Vite bundles and optimizes the React app for production
-   - Outputs to `frontend/dist/` directory
-   - Minifies and optimizes assets automatically
-
-3. **Configuration** (`frontend/vite.config.js`):
-   - **Base Path**: Set to `/` for root-level deployment
-   - **Proxy Configuration**: Proxies `/api` requests to `http://localhost:3000` during development
-   - **React Plugin**: Uses `@vitejs/plugin-react` for React support
-
-4. **Environment Variables**:
-   - Vite uses the `VITE_` prefix for environment variables (not `REACT_APP_`)
-   - Variables are accessed via `import.meta.env.VITE_API_URL`
-   - Configured in `frontend/.env` file
-
-5. **Production Deployment**:
-   - Netlify automatically detects Vite and builds the project
-   - Build output (`dist/`) is served as static files
-   - Configured via `frontend/netlify.toml` for SPA routing
+This project uses **Vite** as the build tool and development server for the React frontend.
 
 ##  Installation
 
