@@ -158,14 +158,16 @@ const Dashboard = () => {
                 <div key={article.id} className="news-card">
                   <h3>{article.title}</h3>
                   <p className="news-source">{article.source}</p>
-                  <a
-                    href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="news-link"
-                  >
-                    Read more →
-                  </a>
+                  {article.url && article.url !== '#' && (
+                    <a
+                      href={article.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="news-link"
+                    >
+                      Read more →
+                    </a>
+                  )}
                   <div className="vote-buttons">
                     <button
                       onClick={() => handleVote('market-news', article.id, 'up')}

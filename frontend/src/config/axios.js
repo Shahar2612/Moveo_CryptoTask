@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 // Create axios instance with base URL from environment variable
-// If VITE_API_URL is set and not empty, use it (should include /api)
-// Otherwise, use '/api' which will work with Vite proxy in development
 const getBaseURL = () => {
   const envUrl = import.meta.env.VITE_API_URL;
   if (envUrl && envUrl.trim() !== '') {

@@ -108,7 +108,6 @@ const getCoinPrices = async (assetIds = []) => {
     };
   } catch (error) {
     // Handle rate limit (429) or other errors - silently use fallback
-    // This is expected behavior when rate limits are hit or API is unavailable
     if (error.response?.status === 429 || error.code === 'ECONNABORTED') {
       // Rate limit reached or timeout - fallback is working as designed
       return getFallbackCoinPrices(assetIds);

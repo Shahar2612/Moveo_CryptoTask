@@ -4,14 +4,14 @@ React frontend for the personalized crypto investor dashboard.
 
 ## Features
 
-- 🔐 **Authentication**: Login and Signup with JWT
-- 📝 **Onboarding**: Personalized quiz to understand user preferences
-- 📊 **Dashboard**: 
+-  **Authentication**: Login and Signup with JWT
+-  **Onboarding**: Personalized quiz to understand user preferences
+-  **Dashboard**: 
   - Market News (CryptoPanic API)
   - Coin Prices (CoinGecko API)
   - AI Insight of the Day
   - Fun Crypto Memes
-- 👍 **Voting System**: Thumbs up/down for content recommendations
+-  **Voting System**: Thumbs up/down for content recommendations
 
 ## Tech Stack
 
@@ -78,8 +78,3 @@ frontend/
 The frontend is configured to proxy API requests to the backend running on `http://localhost:3000`. This is set up in `vite.config.js`.
 
 Make sure the backend server is running before using the frontend.
-
-## Environment Variables
-
-No environment variables are required for the frontend. All API calls are proxied through Vite to the backend.
-

@@ -2,7 +2,7 @@
 
 A personalized crypto investor dashboard with AI-curated content, built with Node.js (MVC) backend and React frontend.
 
-## 🌐 Live Demo
+##  Live Demo
 
 The application is available at: **[https://bright-rabanadas-54d700.netlify.app/](https://bright-rabanadas-54d700.netlify.app/)**
 
@@ -50,8 +50,39 @@ The application is available at: **[https://bright-rabanadas-54d700.netlify.app/
 ### Frontend
 - React 18
 - React Router
-- Vite
+- Vite (Build tool and dev server)
 - Axios
+
+##  Vite Usage
+
+This project uses **Vite** as the build tool and development server for the React frontend. Here's how and where Vite is used:
+
+### Where Vite is Used
+
+1. **Development Server** (`npm run dev`):
+   - Vite serves the React app on `http://localhost:3001`
+   - Provides HMR for instant updates during development
+   - Configured in `frontend/vite.config.js`
+
+2. **Build Process** (`npm run build`):
+   - Vite bundles and optimizes the React app for production
+   - Outputs to `frontend/dist/` directory
+   - Minifies and optimizes assets automatically
+
+3. **Configuration** (`frontend/vite.config.js`):
+   - **Base Path**: Set to `/` for root-level deployment
+   - **Proxy Configuration**: Proxies `/api` requests to `http://localhost:3000` during development
+   - **React Plugin**: Uses `@vitejs/plugin-react` for React support
+
+4. **Environment Variables**:
+   - Vite uses the `VITE_` prefix for environment variables (not `REACT_APP_`)
+   - Variables are accessed via `import.meta.env.VITE_API_URL`
+   - Configured in `frontend/.env` file
+
+5. **Production Deployment**:
+   - Netlify automatically detects Vite and builds the project
+   - Build output (`dist/`) is served as static files
+   - Configured via `frontend/netlify.toml` for SPA routing
 
 ##  Installation
 
@@ -184,8 +215,33 @@ VITE_API_URL=
 **Important Notes:**
 - Vite uses the `VITE_` prefix for environment variables (not `REACT_APP_`)
 - For local development, you can leave `VITE_API_URL` empty - the Vite proxy will handle requests
-- For Vercel deployment, set `VITE_API_URL` to your deployed backend URL (e.g., `https://your-backend.vercel.app/api`)
+- For production deployment (Netlify/Vercel), set `VITE_API_URL` to your deployed backend URL (e.g., `https://your-backend.onrender.com/api`)
 - Environment variables must be prefixed with `VITE_` to be accessible in the frontend code
+
+## API Rate Limits
+
+### CoinGecko API (Coin Prices)
+
+The CoinGecko API has rate limits that can affect the coin prices displayed in the dashboard:
+
+- **Free Tier (No API Key)**: ~10-50 requests per minute
+- **With API Key**: Significantly higher limits (varies by plan)
+
+**What happens when rate limits are hit:**
+- The API returns a 429 (Too Many Requests) error
+- The application automatically falls back to static prices
+- Users will see approximate prices instead of real-time data
+
+**Note:** The application includes fallback prices to ensure it continues working even when rate limits are reached or the API is unavailable.
+
+### CryptoPanic API (Market News)
+
+The CryptoPanic API also has rate limits:
+
+- **Without API Key**: Limited requests, may return 404 errors
+- **With API Key**: Higher rate limits and more reliable access
+
+**Note:** Without an API key, the application will use fallback news with links to crypto news websites.
 
 ##  Documentation
 
@@ -254,14 +310,14 @@ Vote.find({ userId: userId }).populate('userId')
 
 This data foundation enables future machine learning implementations to improve content recommendations and personalize the dashboard experience.
 
-## 🤖 AI Development Tools
+##  AI Development Tools
 
 This project was developed with the assistance of AI tools, primarily **Cursor** and **ChatGPT**. These tools were primarily used for:
 
 - **Debugging**: Troubleshooting errors, fixing bugs, and resolving configuration issues
 - **Architecture & Design**: Thinking through the "big picture" - project structure, MVC architecture, component organization, and system design decisions
 - **Problem Solving**: Working through complex technical challenges and finding optimal solutions
-- **Code Review**: Getting feedback on implementation approaches and best practices
+- **Code Review**: Getting feedback on implementation approaches and best practices, and writing README files as well
 
 The AI tools served as a collaborative partner in the development process, helping to accelerate development while maintaining code quality and architectural integrity.
 
