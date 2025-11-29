@@ -2,18 +2,22 @@
 
 A personalized crypto investor dashboard with AI-curated content, built with Node.js (MVC) backend and React frontend.
 
-## 🚀 Features
+## 🌐 Live Demo
+
+The application is available at: **[https://bright-rabanadas-54d700.netlify.app/](https://bright-rabanadas-54d700.netlify.app/)**
+
+##  Features
 
 - **Authentication**: JWT-based signup/login system
 - **Onboarding**: Personalized quiz to understand user preferences
 - **Daily Dashboard**: 
-  - 📰 Market News (CryptoPanic API)
-  - 💰 Coin Prices (CoinGecko API)
-  - 🤖 AI Insight of the Day (OpenRouter/Hugging Face)
-  - 😄 Fun Crypto Memes (Reddit/Static)
+  -  Market News (CryptoPanic API)
+  -  Coin Prices (CoinGecko API)
+  -  AI Insight of the Day (OpenRouter/Hugging Face)
+  -  Fun Crypto Memes (Reddit/Static)
 - **Voting System**: Thumbs up/down for content recommendations
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 .
@@ -35,7 +39,7 @@ A personalized crypto investor dashboard with AI-curated content, built with Nod
     └── package.json
 ```
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Backend
 - Node.js + Express
@@ -49,7 +53,7 @@ A personalized crypto investor dashboard with AI-curated content, built with Nod
 - Vite
 - Axios
 
-## 📦 Installation
+##  Installation
 
 ### Backend
 
@@ -93,7 +97,7 @@ npm install
 npm run dev
 ```
 
-## 🌐 Running the Application
+##  Running the Application
 
 ### Option 1: Single Command (Recommended)
 
@@ -130,7 +134,7 @@ start-dev.bat
 3. **Start Frontend**: `cd frontend && npm run dev` (runs on port 3001)
 4. **Open Browser**: Navigate to `http://localhost:3001`
 
-## 📝 API Endpoints
+##  API Endpoints
 
 ### Authentication
 - `POST /api/auth/signup` - Register new user
@@ -146,7 +150,7 @@ start-dev.bat
 - `POST /api/dashboard/vote` - Submit vote for content (Protected)
 - `GET /api/dashboard/votes` - Get user's votes (Protected)
 
-## 🔑 Environment Variables
+##  Environment Variables
 
 ### Backend
 
@@ -183,18 +187,18 @@ VITE_API_URL=
 - For Vercel deployment, set `VITE_API_URL` to your deployed backend URL (e.g., `https://your-backend.vercel.app/api`)
 - Environment variables must be prefixed with `VITE_` to be accessible in the frontend code
 
-## 📚 Documentation
+##  Documentation
 
 - Backend: See `backend/README.md`
 - Frontend: See `frontend/README.md`
 
-## 🎯 Usage Flow
+##  Usage Flow
 
 1. **Sign Up** - Create a new account
 2. **Onboarding** - Complete the quiz about your crypto interests
 3. **Dashboard** - View personalized content and vote on recommendations
 
-## 🧠 Future Model Training & Improvement
+##  Future Model Training & Improvement
 
 The voting system collects valuable feedback data that can be used to train and improve the AI recommendation model. Here's a suggested approach for future implementation:
 
@@ -250,5 +254,14 @@ Vote.find({ userId: userId }).populate('userId')
 
 This data foundation enables future machine learning implementations to improve content recommendations and personalize the dashboard experience.
 
+## 🤖 AI Development Tools
 
+This project was developed with the assistance of AI tools, primarily **Cursor** and **ChatGPT**. These tools were primarily used for:
+
+- **Debugging**: Troubleshooting errors, fixing bugs, and resolving configuration issues
+- **Architecture & Design**: Thinking through the "big picture" - project structure, MVC architecture, component organization, and system design decisions
+- **Problem Solving**: Working through complex technical challenges and finding optimal solutions
+- **Code Review**: Getting feedback on implementation approaches and best practices
+
+The AI tools served as a collaborative partner in the development process, helping to accelerate development while maintaining code quality and architectural integrity.
 
