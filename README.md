@@ -53,10 +53,6 @@ The application is available at: **[https://bright-rabanadas-54d700.netlify.app/
 - Vite (Build tool and dev server)
 - Axios
 
-##  Vite Usage
-
-This project uses **Vite** as the build tool and development server for the React frontend.
-
 ##  Installation
 
 ### Backend
